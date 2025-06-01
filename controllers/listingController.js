@@ -88,6 +88,8 @@ const partialUpdateSchema = Joi.object({
   verification_status: Joi.string().optional()
 }).min(1); // Require at least one field to update
 
+
+
 const editListing = async (req, res) => {
   try {
     const property_id = parseInt(req.params.property_id);
@@ -435,6 +437,7 @@ const deleteImage = async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 };
+
 
 
 module.exports = {

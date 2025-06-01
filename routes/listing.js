@@ -15,7 +15,7 @@ const {createListing, editListing, getListingById,getListingsByLandlord,
 
 
 router.get('/search', searchListings);
-router.post('/:landlord_id', createListing);
+router.post('/', createListing);
 router.put('/:property_id', editListing);
 router.get('/:property_id', getListingById);
 router.get('/landlord/:landlord_id', getListingsByLandlord);
