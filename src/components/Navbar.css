@@ -1,0 +1,292 @@
+/* Navbar.css */
+
+/* Reset and base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Header styles */
+header {
+  background: #fff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  padding: 0;
+}
+
+/* Container */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Logo */
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo img {
+  height: 70px;
+  width: auto;
+  object-fit: contain;
+}
+
+/* Navigation */
+.nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav ul.flex {
+  display: flex;
+  gap: 30px;
+}
+
+.nav ul li {
+  position: relative;
+}
+
+.nav ul li a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  font-size: 16px;
+  padding: 20px 0;
+  display: block;
+  transition: color 0.3s ease;
+}
+
+.nav ul li a:hover {
+  color: #b23984;
+}
+
+/* Button section */
+.button {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.button h4 {
+  color: #333;
+  font-size: 16px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.button h4 span {
+  background: #ae274f;
+  color: white;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+/* Primary button with icon */
+.btn1 {
+  background: #27ae60;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-decoration: none;
+  transition: background 0.3s ease;
+}
+
+.btn1:hover {
+  background: #219653;
+}
+
+/* Ensure icon inside button is sized correctly */
+.btn1 .nav-icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+/* Remove old icon styling if not using <i> tags */
+.btn1 i {
+  display: none;
+}
+
+/* Toggle button (mobile menu) */
+.toggle {
+  display: none;
+}
+
+.toggle button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #333;
+  padding: 10px;
+}
+
+.toggle button:hover {
+  color: #27ae60;
+}
+
+/* Mobile styles */
+@media screen and (max-width: 768px) {
+  .container {
+    padding: 0 15px;
+  }
+
+  .toggle {
+    display: block;
+  }
+
+  .nav ul.flex {
+    display: none;
+  }
+
+  .nav ul.small {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    gap: 0;
+  }
+
+  .nav ul.small li {
+    border-bottom: 1px solid #eee;
+  }
+
+  .nav ul.small li:last-child {
+    border-bottom: none;
+  }
+
+  .nav ul.small li a {
+    padding: 15px 0;
+    font-size: 18px;
+  }
+
+  .button {
+    gap: 15px;
+  }
+
+  .button h4 {
+    font-size: 14px;
+  }
+
+  .btn1 {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+
+  .btn1 .nav-icon {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .logo img {
+    height: 40px;
+  }
+
+  .button h4 {
+    display: none;
+  }
+
+  .btn1 {
+    padding: 8px 15px;
+    font-size: 12px;
+  }
+
+  .btn1 .nav-icon {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+/* Additional responsive adjustments */
+@media screen and (max-width: 1024px) {
+  .nav ul.flex {
+    gap: 20px;
+  }
+
+  .button {
+    gap: 15px;
+  }
+}
+
+/* Smooth transitions for mobile menu */
+.nav ul {
+  transition: all 0.3s ease;
+}
+
+/* Active states */
+.nav ul li a.active {
+  color: #27ae60;
+  font-weight: 600;
+}
+
+/* Focus states for accessibility */
+.nav ul li a:focus,
+.btn1:focus,
+.toggle button:focus {
+  outline: 2px solid #27ae60;
+  outline-offset: 2px;
+}
+
+/* ========== Icon Links ========== */
+.header-icons,
+.nav-menu.icon-menu {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0rem;
+}
+
+.nav-icon-link {
+  color: #333;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  transition: color 0.3s;
+}
+
+.nav-icon-link:hover {
+  color: #007bff;
+}
+
+.nav-icon {
+  width: 24px;
+  height: 24px;
+}
+
+.nav-icon:hover {
+  color: #007bff;
+}

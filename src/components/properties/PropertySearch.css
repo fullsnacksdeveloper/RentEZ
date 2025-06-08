@@ -1,0 +1,202 @@
+/* Container */
+.property-search {
+    background-color: white;
+  }
+  
+  /* Header Gradient */
+  .search-header {
+    background: linear-gradient(to right, #2563eb, #4f46e5);
+    padding: 2rem 1rem;
+    color: white;
+    text-align: center;
+  }
+  
+  .search-header h1 {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+  }
+  
+  /* Search Box */
+  .search-box {
+    background-color: white;
+    border-radius: 1rem;
+    padding: 1rem;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    display: grid;
+    gap: 1rem;
+  }
+  
+  .search-box .input-wrapper {
+    position: relative;
+  }
+  
+  .search-box input[type="text"],
+  .search-box input[type="date"],
+  .search-box select {
+    width: 100%;
+    padding: 0.75rem 1rem 0.75rem 2.5rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.75rem;
+    font-size: 1rem;
+  }
+  
+  .search-box .input-icon {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #9ca3af;
+    height: 1.25rem;
+    width: 1.25rem;
+  }
+  
+  /* Button Styles */
+  .btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.75rem;
+    font-weight: 600;
+    transition: background-color 0.2s;
+    cursor: pointer;
+  }
+  
+  .btn-primary {
+    background-color: #2563eb;
+    color: white;
+  }
+  
+  .btn-primary:hover {
+    background-color: #1d4ed8;
+  }
+  
+  .btn-secondary {
+    background-color: #f3f4f6;
+    color: #374151;
+  }
+  
+  .btn-secondary:hover {
+    background-color: #e5e7eb;
+  }
+  
+  .btn-outline {
+    background-color: transparent;
+    color: #2563eb;
+  }
+  
+  .btn-outline:hover {
+    background-color: #eff6ff;
+  }
+  
+  /* View Mode Buttons */
+  .view-toggle {
+    display: flex;
+    background-color: #f3f4f6;
+    border-radius: 0.5rem;
+    padding: 0.25rem;
+  }
+  
+  .view-toggle button {
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    transition: background-color 0.2s;
+    color: #6b7280;
+    background-color: transparent;
+  }
+  
+  .view-toggle button.active {
+    background-color: white;
+    box-shadow: 0 0 0 1px #cbd5e1;
+    color: #2563eb;
+  }
+  
+  /* Filter Container */
+  .filters {
+    padding: 2rem 1rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .filter-section {
+    background-color: #f9fafb;
+    padding: 1.5rem;
+    border-radius: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .filter-section label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #374151;
+    font-weight: 500;
+  }
+  
+  /* Range Slider */
+  input[type="range"] {
+    width: 100%;
+    height: 6px;
+    background: #e5e7eb;
+    border-radius: 4px;
+    outline: none;
+    cursor: pointer;
+  }
+  
+  /* Amenities Grid */
+  .amenities-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 0.75rem;
+    margin-top: 1rem;
+  }
+  
+  .amenity-item {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    border: 1px solid #e5e7eb;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.75rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .amenity-item:hover {
+    background-color: #f3f4f6;
+  }
+  
+  .amenity-item.selected {
+    background-color: #e0f2fe;
+    border-color: #3b82f6;
+    color: #2563eb;
+  }
+  
+  .amenity-item svg {
+    margin-right: 0.5rem;
+  }
+  
+  /* Dropdown */
+  select {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.5rem;
+    border: 1px solid #e5e7eb;
+  }
+  
+  /* Loading Spinner */
+  .spinner {
+    border: 2px solid transparent;
+    border-top: 2px solid white;
+    border-radius: 9999px;
+    width: 20px;
+    height: 20px;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
