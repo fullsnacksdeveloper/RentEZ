@@ -70,7 +70,6 @@ function App() {
                 <Route path="/forgot-password" element={<ForgotPassword />} />
                 
                 {/* Property Routes */}
-                <Route path="/properties" element={<CreateListing />} />
                 <Route path="/properties" element={<ManageListings />} />
                 <Route path="/properties" element={<PropertyList />} />
                 <Route path="/properties/:id" element={<PropertyDetails />} />
