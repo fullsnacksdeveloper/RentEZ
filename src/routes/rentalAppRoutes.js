@@ -1,25 +1,30 @@
 import express from "express";
-import {
-  submitApplication,
-  fetchAllApplications,
-  fetchApplicationById,
-  modifyApplication,
-  removeApplication,
-  changeVerificationStatus
-} from "../controllers/rentalApplicationController.js";
 
-import { verify } from "../middleware/verify.js";
+import {
+  createApplication,
+  getAllApplications,
+  getApplicationById,
+  updateApplication,
+  deleteApplication,
+  changeVerificationStatus
+} from "../controller/rentalAppController.js";
+
+import { verifyToken } from "../middleware/verify.js";
+import { authorizeRoles } from "../middleware/authGuard.js";
+
 
 const router = express.Router();
 
 // Apply token verification to all below routes
-router.use(verify);
+router.post("/create", verifyToken, authorizeRoles("tenant"), createApplication);                 // Tenant
 
-router.post("/submit", submitApplication);                 // Tenant
-router.get("/getApplications", getAllAllApplications);               // Admin
-router.get("/getSingleApplication/:id", getApplicationById);            // Admin or Tenant Owner
-router.put("/updateApplication/:id", updateApplication);               // Tenant (if pending)
-router.delete("/deleteApplication/:id", deleteApplication);            // Tenant (if pending)
-router.patch("/:id/status", changeVerificationStatus); // Admin
+router.get("/getApplications", verifyToken, authorizeRoles("admin"), getAllApplications);               // Admin
+router.get("/getSingleApplication/:id", verifyToken, authorizeRoles("tenant", "admin"), getApplicationById);            // Admin or Tenant Owner
+
+
+router.patch("/updateApplication/:id", verifyToken, authorizeRoles ("landlord","admin"), updateApplication);               // Tenant (if pending)
+router.patch("/:id/status", verifyToken, authorizeRoles("admin"),changeVerificationStatus); // Admin
+router.delete("/deleteApplication/:id", verifyToken, authorizeRoles("admin", "tenant"),deleteApplication);            // Tenant (if pending)
+
 
 export default router;

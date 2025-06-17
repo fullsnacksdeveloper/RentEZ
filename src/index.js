@@ -5,12 +5,12 @@ import dotenv from "dotenv";
 import pool from "./config/db.js";
 
 
-
 import authRoutes from "./routes/authRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import errorHandling from "./middleware/errorHandler.js";
 import rentalAppRoutes from "./routes/rentalAppRoutes.js";
-// import verifRoutes from "./routes/verifRoutes.js";
+import tenantRoutes from "./routes/tenantRoutes.js";
+import landlordRoutes from "./routes/landlordRoutes.js";
 
 
 
@@ -38,7 +38,9 @@ app.use(errorHandling);
 app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/rentals", rentalAppRoutes);
-// app.use("/api/verif", verifRoutes);
+app.use("/api/tenant", tenantRoutes);
+app.use("/api/landlord", landlordRoutes);
+
 
 
 

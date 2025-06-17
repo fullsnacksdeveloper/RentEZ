@@ -1,4 +1,4 @@
-import pool from "../config/database.js";
+// import pool from "../config/db.js";
 import { createRentalApplicationService, 
     getAllApplicationsService, 
     getApplicationByIdService, 
@@ -9,7 +9,7 @@ import { createRentalApplicationService,
 import { handleResponse } from '../utils/handleResponse.js';
 
 
-export const submitApplication = async (req, res, next) => {
+export const createApplication = async (req, res, next) => {
     try{
         const tenant_id = req.user.user_id;
 

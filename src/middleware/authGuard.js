@@ -20,3 +20,35 @@ export const authenticateUser = (req, res, next) => {
         return res.status(401).json({ message: 'Unauthorized: Invalid token' });
     }
 };
+
+
+export const authorizeRoles = (...roles) => {
+  return (req, res, next) => {
+    const user = req.user; // should be set by an auth middleware
+    if (!user || !roles.includes(user.role)) {
+      return res.status(403).json({
+        success: false,
+        message: 'Access denied: insufficient permissions'
+      });
+    }
+    next();
+  };
+};
+
+// Allow only if the user owns the resource or is admin
+export const allowSelfOrAdmin = (paramKey = 'id') => {
+  return (req, res, next) => {
+    const user = req.user;
+    const targetId = parseInt(req.params[paramKey]);
+
+    if (user.role === 'admin' || user.user_id === targetId) {
+      return next();
+    }
+
+    return res.status(403).json({
+      success: false,
+      message: 'Access denied: not owner or admin'
+    });
+  };
+};
+
