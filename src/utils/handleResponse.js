@@ -5,3 +5,5 @@ export const handleResponse = (res, status, message, data = null) => {
         data,
     });
 };
+
+export default handleResponse;

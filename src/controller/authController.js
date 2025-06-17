@@ -1,5 +1,7 @@
+import pool from '../config/db.js'; 
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
+
 import { createUserService,getUserByEmail} from "../models/authModel.js";
 import { handleResponse } from '../utils/handleResponse.js';
 import { isValidEmail } from '../utils/validators.js';
@@ -29,7 +31,6 @@ export const createUser = async (req, res, next) => {
             return handleResponse(res, 400, "Role must be either 'tenant' or 'landlord'");
         }
 
-        const passwordHash = await bcrypt.hash(password, 10);
         const newUser = await createUserService  ({
       email, password, role, first_name, last_name,
       dob, credit_score, annual_income, phone, bio
@@ -53,8 +54,7 @@ export const createAdmin = async (req, res, next) => {
             return res.status(400).json({ message: "Invalid email format." });
         }
 
-        const passwordHash = await bcrypt.hash(password, 10);
-        const adminUser = await createUserService({ email, password: passwordHash, role: 'admin' });
+        const adminUser = await createUserService({ email, password, role: 'admin' });
         handleResponse(res, 201, "Admin account created", adminUser);
     } catch (err) {
         next(err);
@@ -92,14 +92,17 @@ export const loginUser = async (req, res, next) => {
 };
 
 
-
-//Get Profile-from landlord or tenant table
+//Get Profile-user-landlord-tenant tables
 export const getUserProfile = async (req, res, next) => {
   const userId = req.user.user_id;
   const role = req.user.role;
 
   try {
-    const userQuery = await pool.query(`SELECT user_id, email, role, created_at FROM users WHERE user_id = $1`, [userId]);
+  
+    const userQuery = await pool.query(
+      `SELECT user_id, email, role FROM users WHERE user_id = $1`,
+      [userId]
+    );
     const user = userQuery.rows[0];
 
     if (!user) return handleResponse(res, 404, 'User not found');
@@ -107,11 +110,20 @@ export const getUserProfile = async (req, res, next) => {
     let profile = {};
 
     if (role === 'tenant') {
-      const tenantQuery = await pool.query(`SELECT * FROM tenants WHERE tenant_id = $1`, [userId]);
-      profile = tenantQuery.rows[0];
+      const tenantQuery = await pool.query(
+        `SELECT first_name, last_name, dob, credit_score, annual_income, profile_photo, reliability_score
+         FROM tenants WHERE tenant_id = $1`, 
+        [userId]
+      );
+      profile = tenantQuery.rows[0] || {};
     } else if (role === 'landlord') {
-      const landlordQuery = await pool.query(`SELECT * FROM landlords WHERE landlord_id = $1`, [userId]);
-      profile = landlordQuery.rows[0];
+      const landlordQuery = await pool.query(
+        `SELECT first_name, last_name, phone, profile_photo, verified, bio FROM landlords WHERE landlord_id = $1`,
+        [userId]
+      );
+      profile = landlordQuery.rows[0] || {};
+    } else if (role === 'admin') {
+      profile = { note: "Admin profile — additional fields not applicable." };
     }
 
     return handleResponse(res, 200, 'User profile retrieved', { ...user, ...profile });
@@ -122,56 +134,32 @@ export const getUserProfile = async (req, res, next) => {
 };
 
 
-// export const getProfile = async (req, res, next) => {
-//     const userId = req.user.user_id;
-//     const role = req.user.role;
-
-//     try {
-//         const user = await getUserById(req.user.user_id);
-//         if (!user) return res.status(404).json({ message: "User not found" });
-//         return handleResponse(res, 404, "User");
-
-//         res.status(200).json({
-//             user_id: user.user_id,
-//             email: user.email,
-//             role: user.role,
-//             created_at: user.created_at
-//         });
-//     } catch (err) {
-//         next(err);
-//     }
-// };
-
-
-
-// export const getUserProfile = async (req, res, next) => {
-//   const userId = req.user.user_id;
-//   const role = req.user.role;
-
-//   try {
-//     const userQuery = await pool.query(
-//         `SELECT user_id, email, role, created_at FROM users WHERE user_id = $1`, [userId]);
-//     const user = userQuery.rows[0];
-
-//     if (!user) return res.status(404).json({ message: 'User not found' });
-
-//     let profile = {};
-
-//     if (role === 'tenant') {
-//       const tenantQuery = await pool.query(`SELECT * FROM tenants WHERE tenant_id = $1`, [userId]);
-//       profile = tenantQuery.rows[0];
-//     } else if (role === 'landlord') {
-//       const landlordQuery = await pool.query(`SELECT * FROM landlords WHERE landlord_id = $1`, [userId]);
-//       profile = landlordQuery.rows[0];
-//     }
-
-//     return res.status(200).json({ profile: { ...user, ...profile } });
-//   } catch (err) {
-//     next(err);
-//   }
-// };
-
-
+//Change password
+export const changePassword = async (req, res, next) => {
+    const userId = req.user.user_id;
+    const { currentPassword, newPassword } = req.body;
+  
+    try {
+      if (!currentPassword || !newPassword) {
+        return handleResponse(res, 400, "Current and new password are required.");
+      }
+  
+      const result = await pool.query(`SELECT password FROM users WHERE user_id = $1`, [userId]);
+      const user = result.rows[0];
+  
+      if (!user) return handleResponse(res, 404, "User not found");
+  
+      const match = await bcrypt.compare(currentPassword, user.password);
+      if (!match) return handleResponse(res, 401, "Current password is incorrect");
+  
+      const hashedNewPassword = await bcrypt.hash(newPassword, 10);
+      await pool.query(`UPDATE users SET password = $1 WHERE user_id = $2`, [hashedNewPassword, userId]);
+  
+      return handleResponse(res, 200, "Password updated successfully");
+    } catch (err) {
+      next(err);
+    }
+  };
 
 
 

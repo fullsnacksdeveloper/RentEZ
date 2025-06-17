@@ -4,7 +4,9 @@
 
 -- Create ENUM types
 
-CREATE TYPE user_role as ENUM('tenant', 'landlord');
+CREATE TYPE user_role as ENUM('tenant', 'landlord', 'admin');
+
+
 CREATE TYPE verification_status AS ENUM ('pending', 'verified', 'rejected');
 CREATE TYPE application_status AS ENUM ('pending', 'approved', 'rejected');
 CREATE TYPE rental_type AS ENUM ('apartment', 'studio', 'house', 'room');
@@ -47,7 +49,7 @@ CREATE TABLE IF NOT EXISTS landlords (
     phone VARCHAR(20),
     profile_photo VARCHAR(255),
     bio TEXT,
-    verified BOOLEAN DEFAULT FALSE,
+    verified BOOLEAN DEFAULT FALSE, //adjust 
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
@@ -141,3 +143,5 @@ CREATE TABLE IF NOT EXISTS landlord_reviews (
     CONSTRAINT fk_lr_tenant FOREIGN KEY (tenant_id) REFERENCES tenants(tenant_id) ON DELETE CASCADE,
     CONSTRAINT fk_lr_property FOREIGN KEY (property_id) REFERENCES properties(property_id) ON DELETE SET NULL
 );
+
+

@@ -1,37 +1,9 @@
 import pool from "../config/db.js";
 import bcrypt from 'bcrypt';
 
-//30:59
 
 //Original Create User
-// export const createUserService2 = async (email, passwordHash, role) => {
-//     const result = await pool.query(
-//         `INSERT INTO users (email, password_hash, role)
-//          VALUES ($1, $2, $3)
-//          RETURNING user_id, email, role, created_at`,
-//         [email, passwordHash, role]
-//     );
-//     const user = userResult.rows[0];
 
-//     // Role insertion- insert into tenants or landlords table
-//     if (role === 'tenant') {
-//         await pool.query(
-//             `INSERT INTO tenants (tenant_id, first_name, last_name)
-//              VALUES ($1, '', '')`, // placeholders
-//             [user.user_id]
-//         );
-//     }
-
-//     if (role === 'landlord') {
-//         await pool.query(
-//             `INSERT INTO landlords (landlord_id, first_name, last_name)
-//              VALUES ($1, '', '')`, // placeholders
-//             [user.user_id]
-//         );
-//     }
-
-//     return user;
-// };
 
 //Create User and Filling Tenant and Landlord tables
 export const createUserService = async ({ email, password, role, first_name, last_name, dob, credit_score, annual_income, phone, bio }) => {

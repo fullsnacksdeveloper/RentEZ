@@ -1,4 +1,6 @@
 import jwt from 'jsonwebtoken';
+import handleResponse from "../utils/handleResponse.js";
+
 
 export const authenticateUser = (req, res, next) => {
     const authHeader = req.headers.authorization;
@@ -52,3 +54,23 @@ export const allowSelfOrAdmin = (paramKey = 'id') => {
   };
 };
 
+
+
+//Protect to decode user info
+export const protect = (req, res, next) => {
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader || !authHeader.startsWith("Bearer ")) {
+    return handleResponse(res, 401, "Token required");
+  }
+
+  const token = authHeader.split(" ")[1];
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWTSECRET);
+    req.user = decoded;
+    next();
+  } catch (err) {
+    return handleResponse(res, 401, "Invalid or expired token");
+  }
+};
