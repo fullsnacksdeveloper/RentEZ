@@ -110,8 +110,11 @@ const Messages = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <BackButton label="Back" />
-      <h1 className="text-3xl font-bold text-gray-900 mb-8">Messages</h1>
+        <div className="flex items-center justify-start gap-4 mb-8">
+          <BackButton label="Back" />
+          <h1 className="text-3xl font-bold text-gray-900">Messages</h1>
+        </div>
+
 
       <div className="bg-white rounded-xl shadow-lg overflow-hidden h-[calc(100vh-160px)]">
         <div className="flex h-full min-h-0">
@@ -140,8 +143,8 @@ const Messages = () => {
           </div>
 
           {/* Right Panel */}
-          <div className="w-2/3 flex flex-col h-full min-h-0 border-l border-gray-200">
-            <div className="p-4 border-b font-semibold text-lg">
+          <div className="h-30 min-h-0">
+            <div className="m-8 p-4 border-b font-semibold text-lg">
               {selectedConversation
                 ? `Chat with ${selectedConversation.participant_email}`
                 : "Select a conversation"}
@@ -150,10 +153,10 @@ const Messages = () => {
             {/* ✅ Message List - scrollable and centered */}
             <div
               id="messageList"
-              className="flex-1 overflow-y-auto p-4 min-h-0"
+              className=" h-64 overflow-y-auto p-4"
               style={{ backgroundColor: "#e5ddd5" }}
             >
-              <div className="mx-auto w-full max-w-lg space-y-3">
+              <div className="mx-auto w-full max-w-sm space-y-3">
                 {selectedConversation && messages.length > 0 ? (
                   messages.map((msg) => (
                     <div

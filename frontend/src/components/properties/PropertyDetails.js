@@ -90,7 +90,7 @@ export default function PropertyDetails({ property, onBack }) {
             <ArrowLeft size={20} /> Back to Listings
           </button>
           <div className="flex items-center gap-4">
-            <button onClick={() => setIsFavorited(!isFavorited)} className={`p-2 rounded-full ${isFavorited ? 'bg-red-100 text-red-600' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}>
+            <button onClick={() => setIsFavorited(!isFavorited)} className={`p-5 rounded-full ${isFavorited ? 'bg-red-100 text-red-600' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}>
               <Heart size={20} fill={isFavorited ? 'currentColor' : 'none'} />
             </button>
             <button className="p-2 rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200">
@@ -119,9 +119,9 @@ export default function PropertyDetails({ property, onBack }) {
             <div className="flex items-center gap-2 text-gray-600 mb-4"> <MapPin size={18} /> <span>{propertyData.address}</span> </div>
             <div className="flex items-center gap-2 mb-6"> <DollarSign size={24} className="text-green-600" /> <span className="text-3xl font-bold text-green-600"> {typeof propertyData.price === 'number' ? propertyData.price.toLocaleString() : 'N/A'} </span> </div>
 
-            <div className="grid grid-cols-3 gap-4 text-center bg-gray-50 rounded-xl p-6 mb-8">
-              <div><div className="text-sm text-gray-600">Bedrooms</div><div className="text-2xl font-bold">{propertyData.bedrooms}</div></div>
-              <div><div className="text-sm text-gray-600">Bathrooms</div><div className="text-2xl font-bold">{propertyData.bathrooms}</div></div>
+            <div className="grid grid-cols-3 gap-6 text-center bg-gray-50 rounded-xl p-6 mb-4">
+              <div><div className="text-sm text-gray-600">Bedrms </div><div className="text-2xl font-bold">{propertyData.bedrooms}</div></div>
+              <div><div className="text-sm text-gray-600">Bathrms</div><div className="text-2xl font-bold">{propertyData.bathrooms}</div></div>
               <div><div className="text-sm text-gray-600">Sq Ft</div><div className="text-2xl font-bold">{propertyData.sqft ?? 'N/A'}</div></div>
             </div>
 
@@ -143,7 +143,7 @@ export default function PropertyDetails({ property, onBack }) {
         {/* Sidebar */}
         <div className="space-y-6">
           <div className="bg-white rounded-2xl p-6 shadow-sm">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">Contact Landlord</h3>
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">Additional Details </h3>
             {propertyData.agent && (
               <div className="flex items-center gap-1 text-sm text-gray-600 mb-4">
                 <Star size={14} fill="currentColor" className="text-yellow-500" />
@@ -151,21 +151,27 @@ export default function PropertyDetails({ property, onBack }) {
                 <span>({propertyData.agent.reviews} reviews)</span>
               </div>
             )}
+
+             {/* Not Currently Used */}
             <div className="space-y-2 text-sm">
-              <div className="flex gap-2 items-center"><Phone size={16} className="text-gray-400" /><span>{propertyData.agent?.phone}</span></div>
-              <div className="flex gap-2 items-center"><Mail size={16} className="text-gray-400" /><span>{propertyData.agent?.email}</span></div>
+              <div className="flex gap-2 items-center"> <span>{propertyData.agent?.phone}</span></div>
+              <div className="flex gap-2 items-center"> <span>{propertyData.agent?.email}</span></div>
             </div>
 
+            <button  className="w-full bg-blue-600 text-white py-3 mb-4 rounded hover:bg-blue-700 font-semibold"> 
+              <Link to={`/apply/${property.id}`}   className="w-full text-white 
+                  "> Apply For This Property</Link>
+            </button>
             <button onClick={() => setShowContactForm(true)} className="w-full bg-blue-600 text-white py-3 mt-5 rounded hover:bg-blue-700 font-semibold">Message Landlord</button>
-            <Link to={`/apply/${property.id}`} className="w-full block text-center mt-3 bg-green-600 text-white py-3 rounded hover:bg-green-700 font-semibold">Apply for this Property</Link>
+            
 
             {showContactForm && (
               <div className="mt-6 border-t pt-4">
-                <input name="name" value={contactForm.name} onChange={handleContactFormChange} placeholder="Your Name" className="w-full border rounded p-2 mb-2" />
-                <input name="email" value={contactForm.email} onChange={handleContactFormChange} placeholder="Your Email" className="w-full border rounded p-2 mb-2" />
-                <input name="phone" value={contactForm.phone} onChange={handleContactFormChange} placeholder="Your Phone" className="w-full border rounded p-2 mb-2" />
+                <input name="name" value={contactForm.name} onChange={handleContactFormChange} placeholder="Your Name" className="w-full border rounded p-4 mb-2 " />
+                <input name="email" value={contactForm.email} onChange={handleContactFormChange} placeholder="Your Email" className="w-full border rounded p-4 mb-2" />
+                <input name="phone" value={contactForm.phone} onChange={handleContactFormChange} placeholder="Your Phone" className="w-full border rounded p-4 mb-2" />
                 <textarea name="message" value={contactForm.message} onChange={handleContactFormChange} placeholder="Your Message" rows="3" className="w-full border rounded p-2 mb-2"></textarea>
-                <button onClick={handleContactSubmit} className="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700 font-semibold">Send Message</button>
+                <button onClick={handleContactSubmit} className="w-full bg-green-600 text-blue py-2 rounded hover:bg-green-700 font-semibold">Send Message</button>
               </div>
             )}
           </div>

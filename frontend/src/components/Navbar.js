@@ -75,7 +75,7 @@ const { logout, isAuthenticated, user } = useAuth();
         <div className='container flex'>
           <div className='logo'>
             <img src={logo} alt='Logo' />
-            <div className='navbar-logo'>
+            <div className='navbar-log p-4 '>
               RentEZ
               <i className='fab fa-typo3' />
             </div>
@@ -97,26 +97,7 @@ const { logout, isAuthenticated, user } = useAuth();
             <div className="flex items-center space-x-6">
               {isAuthenticated ? (
                 <>
-                  <Link to={getDashboardLink()} className="text-gray-700 hover:text-blue-600 transition-colors">
-                    Dashboard
-                  </Link>
-                  <Link to="/profile" className="text-gray-700 hover:text-blue-600 transition-colors">
-                    <User className="h-5 w-5" />
-                  </Link>
-                  <Link to="/messages" className="text-gray-700 hover:text-blue-600 transition-colors">
-                    <MessageSquare className="h-5 w-5" />
-                  </Link>
-                  {user?.userType === 'landlord' && (
-                    <Link to="/landlord/create-listing" className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors">
-                      Add Property
-                    </Link>
-                  )}
-                  <button
-                    onClick={handleLogout}
-                    className="text-red-600 hover:text-red-700 transition-colors"
-                  >
-                    <LogOut className="h-5 w-5" />
-                  </button>
+                  
                 </>
               ) : (
                 <>
@@ -130,15 +111,14 @@ const { logout, isAuthenticated, user } = useAuth();
               )}
             </div>
 
-            {/* Mobile Menu Button */}
+            {/* toggle Menu Button */}
             <button
               className="md:hidden text-gray-700 hover:text-blue-600"
               onClick={toggleMenu}
             >
               {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
-
-            <div className='toggle'>
+              <div className='toggle'>
               <button onClick={() => setNavList(!navList)}>
                 {navList ? <i className='fa fa-times'></i> : <i className='fa fa-bars'></i>}
               </button>
@@ -156,6 +136,7 @@ const { logout, isAuthenticated, user } = useAuth();
             </div>
           </div>
         </div>
+           
 
         {/* Mobile Menu */}
         {isMenuOpen && (
@@ -205,7 +186,7 @@ const { logout, isAuthenticated, user } = useAuth();
                          My Applications
                       </Link>
 
-                      
+
                       <Link to="/premium" className="text-gray-700 hover:text-blue-600 transition-colors" onClick={() => setIsMenuOpen(false)}>
                         Premium Subscription
                       </Link>
@@ -218,7 +199,7 @@ const { logout, isAuthenticated, user } = useAuth();
                   )}
                   <button
                     onClick={handleLogout}
-                    className="text-left text-red-600 hover:text-red-700 transition-colors"
+                    className="text-left text-red-600 hover:text-red-700 transition-colors p-2"
                   >
                     Logout
                   </button>

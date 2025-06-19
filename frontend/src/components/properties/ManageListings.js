@@ -192,30 +192,30 @@ function CreateListingForm({ user, setListings, setCurrentView }) {
     <form onSubmit={handleSubmit} className="max-w-4xl mx-auto p-6 bg-white rounded shadow space-y-4">
       <h2 className="text-2xl font-bold">Create New Listing</h2>
       {error && <div className="text-red-600">{error}</div>}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <input name="address_line" value={formData.address_line} onChange={handleChange} placeholder="Address Line" className="w-full border p-2 rounded" required />
-        <input name="city" value={formData.city} onChange={handleChange} placeholder="City" className="w-full border p-2 rounded" required />
-        <select name="parish" value={formData.parish} onChange={handleChange} className="w-full border p-2 rounded" required>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4" class='text-right'>
+        <input name="address_line" value={formData.address_line} onChange={handleChange} placeholder="Address Line" className="w-full border p-4 rounded mb-4" required />
+        <input name="city" value={formData.city} onChange={handleChange} placeholder="City" className="w-full border p-4 rounded mb-4" required />
+        <select name="parish" value={formData.parish} onChange={handleChange} className="w-full border p-4 rounded mb-4" required>
           <option value="">Select Parish</option>
           {[ 'Kingston','St. Andrew','St. Thomas','Portland','St. Mary','St. Ann','Trelawny','St. James','Hanover','Westmoreland','St. Elizabeth','Manchester','Clarendon','St. Catherine' ].map(p => <option key={p} value={p}>{p}</option>)}
         </select>
-        <input name="monthly_rent" value={formData.monthly_rent} onChange={handleChange} placeholder="Monthly Rent" type="number" className="w-full border p-2 rounded" required />
-        <input name="bedrooms" value={formData.bedrooms} onChange={handleChange} placeholder="Bedrooms" type="number" className="w-full border p-2 rounded" required />
-        <input name="bathrooms" value={formData.bathrooms} onChange={handleChange} placeholder="Bathrooms" type="number" className="w-full border p-2 rounded" required />
-        <input name="square_footage" value={formData.square_footage} onChange={handleChange} placeholder="Square Footage" type="number" className="w-full border p-2 rounded" />
-        <input name="availability_date" value={formData.availability_date} onChange={handleChange} type="date" className="w-full border p-2 rounded" />
+        <input name="monthly_rent" value={formData.monthly_rent} onChange={handleChange} placeholder="Monthly Rent" type="number" className="w-full border p-4 rounded mb-4" required />
+        <input name="bedrooms" value={formData.bedrooms} onChange={handleChange} placeholder="Bedrooms" type="number" className="w-full border p-4 rounded mb-4" required />
+        <input name="bathrooms" value={formData.bathrooms} onChange={handleChange} placeholder="Bathrooms" type="number" className="w-full border p-4 rounded mb-4" required />
+        <input name="square_footage" value={formData.square_footage} onChange={handleChange} placeholder="Square Footage" type="number" className="w-full border p-4 rounded mb-4" />
+        <input name="availability_date" value={formData.availability_date} onChange={handleChange} type="date" className="w-full border p-4 rounded" />
       </div>
 
       <textarea name="description" value={formData.description} onChange={handleChange} placeholder="Description" className="w-full border p-2 rounded" />
 
-      <select name="rental_type" value={formData.rental_type} onChange={handleChange} className="w-full border p-2 rounded">
+      <select name="rental_type" value={formData.rental_type} onChange={handleChange} className="w-full border p-4 rounded">
         <option value="apartment">Apartment</option>
         <option value="house">House</option>
         <option value="studio">Studio</option>
         <option value="condo">Condo</option>
       </select>
 
-      <select name="pet_policy" value={formData.pet_policy} onChange={handleChange} className="w-full border p-2 rounded">
+      <select name="pet_policy" value={formData.pet_policy} onChange={handleChange} className="w-full border p-4 rounded">
         <option value="no_pets">No Pets</option>
         <option value="cats_only">Cats Only</option>
         <option value="dogs_only">Dogs Only</option>
@@ -226,7 +226,7 @@ function CreateListingForm({ user, setListings, setCurrentView }) {
         <label className="block mb-2 font-medium">Amenities</label>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
           {["WiFi", "Parking", "Pool", "Gym", "Laundry", "AC", "Security", "Garden"].map((a) => (
-            <label key={a} className="flex items-center">
+            <label key={a} className="">
               <input
                 type="checkbox"
                 checked={formData.amenities.includes(a)}

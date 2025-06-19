@@ -175,20 +175,20 @@ try {
     <div className="bg-white">
       <div className="max-w-6xl mx-auto px-4 py-6">
         <div className="flex flex-wrap items-center justify-between mb-6">
-          <div className="flex items-center space-x-4">
-            <button onClick={() => setShowFilters(!showFilters)} className="flex items-center px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg">
+          {/*<div className="flex items-center space-x-4">
+           {/*} <button onClick={() => setShowFilters(!showFilters)} className="flex items-center px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg">
               <SlidersHorizontal className="h-5 w-5 mr-2" /> Filters
               <ChevronDown className={`h-4 w-4 ml-2 ${showFilters ? 'rotate-180' : ''}`} />
-            </button>
-            <button onClick={saveSearch} className="px-4 py-2 text-blue-600 hover:bg-blue-50 rounded-lg">Save Search</button>
+            </button> */}
+            {/*<button onClick={saveSearch} className="px-4 py-2 text-blue-600 hover:bg-blue-50 rounded-lg">Save Search</button>
             <button onClick={clearFilters} className="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg">Clear All</button>
-          </div>
+          </div>*/}
           <div className="flex items-center space-x-4 mt-4 lg:mt-0">
-            <select value={sortBy} onChange={(e) => setSortBy(e.target.value)} className="px-4 py-2 border border-gray-200 rounded-lg">
+            {/*<select value={sortBy} onChange={(e) => setSortBy(e.target.value)} className="px-4 py-2 border border-gray-200 rounded-lg">
               {sortOptions.map(option => (
                 <option key={option.value} value={option.value}>{option.label}</option>
               ))}
-            </select>
+            </select>*/}
           </div>
         </div>
 
@@ -280,9 +280,14 @@ try {
             className="w-full h-full object-cover"
 />
 
-            <div className="property-price">
-              ${property.monthly_rent?.toLocaleString() || 'N/A'}
+            <div className="flex items-center justify-between px-3 py-2  text-sm text-gray-700 font-medium">
+              <span>${property.monthly_rent?.toLocaleString() || 'N/A'}</span>
+              <div className="flex items-center gap-1">
+                <MapPin className="w-4 h-4 text-purple-600" />
+                <span>{property.city}</span>
+              </div>
             </div>
+
           </div>
           <div className="property-info">
             <div className="property-details">
@@ -290,10 +295,8 @@ try {
               <span>{property.bathrooms} baths</span>
               <span>{property.square_footage} sqft</span>
             </div>
-            <div className="property-location">
-              <MapPin className="location-icon" />
-              <span>{property.city}</span>
-            </div>
+            
+
             <div className="property-rating">
               <div className="stars">
                 {[...Array(5)].map((_, i) => (

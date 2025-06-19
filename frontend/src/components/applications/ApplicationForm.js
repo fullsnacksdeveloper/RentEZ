@@ -57,7 +57,7 @@ const ApplicationForm = () => {
           </button>
         </div>
       ) : (
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-2">
           {[
             { name: 'fullName', label: 'Full Name', type: 'text' },
             { name: 'email', label: 'Email', type: 'email' },
@@ -66,13 +66,13 @@ const ApplicationForm = () => {
             { name: 'income', label: 'Monthly Income', type: 'number' },
           ].map(({ name, label, type }) => (
             <div key={name}>
-              <label className="block text-sm font-medium">{label}</label>
+              <label className=" tex-sm font-medium ">{label}</label>
               <input
                 type={type}
                 name={name}
                 value={formData[name]}
                 onChange={handleChange}
-                className="mt-1 block w-full border border-gray-300 rounded p-2"
+                className="mt-1 block w-full border border-gray-300 rounded p-4 "
                 required
               />
             </div>
