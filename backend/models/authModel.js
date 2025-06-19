@@ -1,0 +1,119 @@
+//import pool from "../config/db.js";
+const bcrypt = require('bcrypt'); 
+const pool = require('../db')
+
+
+//30:59
+
+//Original Create User
+// export const createUserService2 = async (email, passwordHash, role) => {
+//     const result = await pool.query(
+//         `INSERT INTO users (email, password_hash, role)
+//          VALUES ($1, $2, $3)
+//          RETURNING user_id, email, role, created_at`,
+//         [email, passwordHash, role]
+//     );
+//     const user = userResult.rows[0];
+
+//     // Role insertion- insert into tenants or landlords table
+//     if (role === 'tenant') {
+//         await pool.query(
+//             `INSERT INTO tenants (tenant_id, first_name, last_name)
+//              VALUES ($1, '', '')`, // placeholders
+//             [user.user_id]
+//         );
+//     }
+
+//     if (role === 'landlord') {
+//         await pool.query(
+//             `INSERT INTO landlords (landlord_id, first_name, last_name)
+//              VALUES ($1, '', '')`, // placeholders
+//             [user.user_id]
+//         );
+//     }
+
+//     return user;
+// };
+
+
+
+// Create User and Fill Tenant or Landlord table
+const createUserService = async ({
+  email,
+  password,
+  role,
+  first_name,
+  last_name,
+  dob,
+  credit_score,
+  annual_income,
+  phone,
+  bio
+}) => {
+  const client = await pool.connect();
+  try {
+    await client.query('BEGIN');
+
+   // const password_hash = await bcrypt.hash(password, 10);
+    const password_hash = password; // ✅ Already hashed
+
+    const userResult = await client.query(
+      `INSERT INTO users (email, password_hash, role)
+       VALUES ($1, $2, $3)
+       RETURNING user_id, email, role, created_at`,
+      [email, password_hash, role]
+    );
+
+    const user = userResult.rows[0];
+
+    if (role === 'tenant') {
+      await client.query(
+        `INSERT INTO tenants (tenant_id, first_name, last_name, dob, credit_score, annual_income)
+         VALUES ($1, $2, $3, $4, $5, $6)`,
+        [user.user_id, first_name, last_name, dob, credit_score, annual_income]
+      );
+    } else if (role === 'landlord') {
+      await client.query(
+        `INSERT INTO landlords (landlord_id, first_name, last_name, phone, bio)
+         VALUES ($1, $2, $3, $4, $5)`,
+        [user.user_id, first_name, last_name, phone, bio]
+      );
+    }
+
+    await client.query('COMMIT');
+    //return user;
+
+
+    return {
+      id: user.user_id,
+      email: user.email,
+      role: user.role,
+      first_name,
+      last_name,
+      phone
+    };
+
+
+
+    
+  } catch (error) {
+    await client.query('ROLLBACK');
+    throw error;
+  } finally {
+    client.release();
+  }
+};
+
+// Check for email — used during login
+const getUserByEmail = async (email) => {
+  const result = await pool.query(
+    `SELECT * FROM users WHERE email = $1`,
+    [email]
+  );
+  return result.rows[0];
+};
+
+module.exports = {
+  createUserService,
+  getUserByEmail
+};
