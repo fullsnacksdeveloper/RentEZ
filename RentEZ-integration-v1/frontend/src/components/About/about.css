@@ -1,0 +1,166 @@
+/* About Section Styles */
+.about {
+    padding: 2rem 0;
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+  
+  .flex {
+    display: flex;
+    gap: 2rem;
+  }
+  
+  .mtop {
+    margin-top: 3rem;
+  }
+  
+  .row {
+    flex: 1;
+  }
+  
+  .left {
+    padding-right: 2rem;
+  }
+  
+  .right {
+    padding-left: 2rem;
+  }
+  
+  /* Button Styles */
+  .btn2 {
+    background-color: #a855f7;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    margin-top: 1.5rem;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn2:hover {
+    background-color: #9333ea;
+  }
+  
+  /* Typography */
+  header {
+    margin-bottom: 1.5rem;
+  }
+  
+  p {
+    line-height: 1.6;
+    color: #666;
+    margin-bottom: 1rem;
+  }
+  
+  /* Creators Section */
+  .creators-section {
+    background: linear-gradient(135deg, #a855f7 0%, #ec4899 50%, #9333ea 100%);
+    padding: 2rem;
+    border-radius: 12px;
+    color: white;
+  }
+  
+  .creators-section h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+  
+  .creators-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .creator-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    transition: background 0.3s ease;
+  }
+  
+  .creator-item:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+  
+  /* Small Creator Images */
+  .creator-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    background-color: rgba(255, 255, 255, 0.2);
+    flex-shrink: 0;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+  }
+  
+  .creator-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .creator-name {
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .flex {
+      flex-direction: column;
+      gap: 2rem;
+    }
+    
+    .left, .right {
+      padding: 0;
+    }
+    
+    .container {
+      padding: 0 1rem;
+    }
+    
+    .creators-section {
+      padding: 1.5rem;
+    }
+    
+    .creator-image {
+      width: 35px;
+      height: 35px;
+    }
+    
+    .creator-name {
+      font-size: 0.85rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .creators-section h3 {
+      font-size: 1.25rem;
+    }
+    
+    .creator-image {
+      width: 30px;
+      height: 30px;
+    }
+    
+    .creator-name {
+      font-size: 0.8rem;
+    }
+    
+    .btn2 {
+      padding: 10px 20px;
+      font-size: 0.9rem;
+    }
+  }
